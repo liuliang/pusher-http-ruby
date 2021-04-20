@@ -27,7 +27,7 @@ module Pusher
       http = @client.sync_http_client
 
       begin
-        response = http.request(@verb, @uri, @params, @body, @head)
+        response = http.request(@verb, @uri.to_s, @params, @body, @head)
       rescue HTTPClient::BadResponseError, HTTPClient::TimeoutError,
              SocketError, Errno::ECONNREFUSED => e
         error = Pusher::HTTPError.new("#{e.message} (#{e.class})")
@@ -74,7 +74,7 @@ module Pusher
       else
         http = @client.sync_http_client
 
-        return http.request_async(@verb, @uri, @params, @body, @head)
+        return http.request_async(@verb, @uri.to_s, @params, @body, @head)
       end
     end
 
